@@ -20,13 +20,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(brightness: Brightness.light, primarySwatch: Colors.green
-          /* light theme settings */
-          ),
-      darkTheme:
-          ThemeData(brightness: Brightness.dark, primarySwatch: Colors.green
-              /* dark theme settings */
-              ),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.green,
+        /* light theme settings */
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.green,
+        /* dark theme settings */
+      ),
       themeMode: ThemeMode.system,
       /* ThemeMode.system to follow system theme,
          ThemeMode.light for light theme,
