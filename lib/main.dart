@@ -151,6 +151,7 @@ class NotificationCard extends StatelessWidget {
                 children: [
                   ElevatedButton(
                       onPressed: () {
+                        debugPrint('Hello');
                         FocusManager.instance.primaryFocus?.unfocus();
                         NotificationService().showNotification(
                             1,

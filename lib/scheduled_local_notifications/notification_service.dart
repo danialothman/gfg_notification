@@ -3,35 +3,34 @@ import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
   static final NotificationService _notificationService =
-  NotificationService._internal();
+      NotificationService._internal();
 
   factory NotificationService() {
     return _notificationService;
   }
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   NotificationService._internal();
 
   Future<void> initNotification() async {
-
     // Android initialization
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
     // ios initialization
     const DarwinInitializationSettings initializationSettingsIOS =
-    DarwinInitializationSettings(
-      requestAlertPermission: false,
-      requestBadgePermission: false,
-      requestSoundPermission: false,
+        DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
     );
 
-    const  InitializationSettings initializationSettings =
-    InitializationSettings(
-        android: initializationSettingsAndroid,
-        iOS: initializationSettingsIOS);
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsIOS);
     // the initialization settings are initialized after they are set
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
@@ -44,7 +43,6 @@ class NotificationService {
       tz.TZDateTime.now(tz.local).add(const Duration(
           seconds: 1)), //schedule the notification to show after 2 seconds.
       const NotificationDetails(
-
         // Android details
         android: AndroidNotificationDetails('main_channel', 'Main Channel',
             channelDescription: "ashwin",
@@ -61,9 +59,9 @@ class NotificationService {
 
       // Type of time interpretation
       uiLocalNotificationDateInterpretation:
-      UILocalNotificationDateInterpretation.absoluteTime,
+          UILocalNotificationDateInterpretation.absoluteTime,
       androidAllowWhileIdle:
-      true, // To show notification even when the app is closed
+          true, // To show notification even when the app is closed
     );
   }
 }
