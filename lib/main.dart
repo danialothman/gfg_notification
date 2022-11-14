@@ -52,6 +52,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController notificationTitle = TextEditingController();
   TextEditingController notificationDescription = TextEditingController();
+  TextEditingController notificationTitle1 = TextEditingController();
+  TextEditingController notificationDescription1 = TextEditingController();
+  TextEditingController notificationTitle2 = TextEditingController();
+  TextEditingController notificationDescription2 = TextEditingController();
 
   @override
   void initState() {
@@ -80,6 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 NotificationCard(
                     notificationTitle: notificationTitle,
                     notificationDescription: notificationDescription),
+                NotificationCard(
+                    notificationTitle: notificationTitle1,
+                    notificationDescription: notificationDescription1),
+                NotificationCard(
+                    notificationTitle: notificationTitle2,
+                    notificationDescription: notificationDescription2),
               ],
             ),
           ),
