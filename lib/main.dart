@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timezone/data/latest.dart' as tz;
+
 import 'scheduled_local_notifications/notification_service.dart';
 
 void main() {
@@ -19,16 +20,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.green
-        /* light theme settings */
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.green
-        /* dark theme settings */
-      ),
+      theme: ThemeData(brightness: Brightness.light, primarySwatch: Colors.green
+          /* light theme settings */
+          ),
+      darkTheme:
+          ThemeData(brightness: Brightness.dark, primarySwatch: Colors.green
+              /* dark theme settings */
+              ),
       themeMode: ThemeMode.system,
       /* ThemeMode.system to follow system theme,
          ThemeMode.light for light theme,
@@ -72,51 +70,93 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text ('Local Notification', style: Theme.of(context).textTheme.headline5,),
-                Text ('2 seconds', style: Theme.of(context).textTheme.bodyText1,),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: notificationTitle,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Enter Title",
-                    ),
-                    textInputAction: TextInputAction.next,
-                  ),
+                Text(
+                  'Local Notification',
+                  style: Theme.of(context).textTheme.headline5,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: notificationDescription,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Enter Description",
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ElevatedButton(
-                          onPressed: (){
-                        FocusManager.instance.primaryFocus?.unfocus();
-                          NotificationService().showNotification(1, notificationTitle.text, notificationDescription.text);
-                          },
-                          child: const Text('Show Notification')),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-                        onPressed: (){
-                          notificationTitle.clear();
-                          notificationDescription.clear();
-                        }, child: const Text('Clear'))],),
-                ),
-
+                NotificationCard(
+                    notificationTitle: notificationTitle,
+                    notificationDescription: notificationDescription),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class NotificationCard extends StatelessWidget {
+  const NotificationCard({
+    Key? key,
+    required this.notificationTitle,
+    required this.notificationDescription,
+  }) : super(key: key);
+
+  final TextEditingController notificationTitle;
+  final TextEditingController notificationDescription;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Text(
+              '2 seconds',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: notificationTitle,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Enter Title",
+                ),
+                textInputAction: TextInputAction.next,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: notificationDescription,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Enter Description",
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        NotificationService().showNotification(
+                            1,
+                            notificationTitle.text,
+                            notificationDescription.text);
+                      },
+                      child: const Text('Show Notification')),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey),
+                      onPressed: () {
+                        notificationTitle.clear();
+                        notificationDescription.clear();
+                      },
+                      child: const Text('Clear'))
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
